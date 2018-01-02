@@ -1,0 +1,15 @@
+<div>
+<h2 mat-dialog-title>Recent Comments</h2>
+<mat-dialog-content>
+    <mat-list>
+        <mat-list-item *ngFor="let comment of comments">
+            <h3 matLine>{{comment.user}} says:</h3>
+            <p matLine>{{comment.comment}}</p>
+        </mat-list-item>
+    </mat-list>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="onNoClick()">Close</button>
+  <button mat-button>Comment</button>
+</mat-dialog-actions>
+</div>

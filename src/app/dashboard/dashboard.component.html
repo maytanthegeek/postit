@@ -1,0 +1,38 @@
+<mat-toolbar color="primary">
+    <p>Social&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    <button mat-raised-button (click)="this.authService.logout()">Logout</button>
+</mat-toolbar>
+<br />
+<form>
+    <mat-form-field>
+        <input matInput name="title" placeholder="Post Title" />
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+        <textarea matInput name="content" placeholder="Post Title"></textarea>
+    </mat-form-field>
+    <br />
+    <button mat-raised-button (click)="addPost()">Post It</button>
+</form>
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let post of posts | async">
+        <mat-expansion-panel-header>
+            <mat-panel-title>{{post.data.title}}</mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>{{post.data.content}}</p>
+        <form>
+            <mat-form-field class="comment-area">
+                <textarea matInput [(ngModel)]="newComment" name="comment-area" placeholder="Enter your comment" matTextareaAutosize matAutosizeMinRows="1"
+                    matAutosizeMaxRows="2"></textarea>
+            </mat-form-field>
+            <button mat-button color="accent" (click)="addComment(post.id, post.data.comments)">Comment</button>
+        </form>
+        <mat-list>
+            <mat-list-item *ngFor="let comment of post.data.comments">
+                <h4 matLine>{{comment.user}} says:</h4>
+                <p matLine>{{comment.comment}}</p>
+            </mat-list-item>
+        </mat-list>
+        <!--<button mat-button (click)="showComments()">Comment</button>-->
+    </mat-expansion-panel>
+</mat-accordion>

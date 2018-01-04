@@ -55,12 +55,18 @@ export class DashboardComponent implements OnInit {
   */
 
   addComment(postId: string, postComments: Comment[]) {
-    postComments.push({user: this.authService.userDetails.displayName, comment: this.newComment});
-    this.afs.collection('posts').doc(postId).update({'comments': JSON.parse(JSON.stringify(postComments))});
+    if( this.newComment) {
+      postComments.push({user: this.authService.userDetails.displayName, comment: this.newComment});
+      this.afs.collection('posts').doc(postId).update({'comments': JSON.parse(JSON.stringify(postComments))});
+    }
   }
 
   addPost() {
-    this.afs.collection('posts').add({'title': this.title, 'content': this.content, 'comments': []});
+    if(this.title && this.content) {
+      this.afs.collection('posts').add({'title': this.title, 'content': this.content, 'comments': []});
+      this.title = "";
+      this.content = "";
+    }
   }
 
 }
